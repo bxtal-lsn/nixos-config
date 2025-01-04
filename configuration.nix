@@ -97,20 +97,6 @@
   services.displayManager.autoLogin.enable = true;
   services.displayManager.autoLogin.user = "bxtal";
 
-  services.mysql = {
-    enable = true;
-    package = pkgs.mariadb;
-  };
-
-  services.postgresql = {
-    enable = true;
-    package = pkgs.postgresql_14;
-    ensureDatabases = [ "init_db" ];
-    authentication = pkgs.lib.mkOverride 10 ''
-      #type database  DBuser  auth-method
-      local all       all     trust
-    '';
-  };
   # Workaround for GNOME autologin: htjps://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
   systemd.services."getty@tty1".enable = false;
   systemd.services."autovt@tty1".enable = false;
