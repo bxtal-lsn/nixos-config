@@ -15,7 +15,11 @@
   boot.loader.grub.device = "/dev/sda";
   boot.loader.grub.useOSProber = true;
 
-
+   virtualisation.docker.rootless = {
+    enable = true;
+    setSocketVariable = true;
+  };
+  users.extraGroups.docker.members = [ "bxtal" ];
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -31,8 +35,8 @@
   time.timeZone = "Europe/London";
   
   # Experimental features
-  nix.settings.experimental-features = [ "nix-command" ];
-  
+  nix.settings.experimental-features = ["flakes nix-command"];
+
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
@@ -116,18 +120,23 @@
   python314Full
   fontforge
   docker
+  lazydocker
+  lazygit
   gnumake
   ripgrep
   zig
   gcc
   go
   gopls
+  gotests
   fzf
   lua-language-server
   stylua
   zls 
   pyright
   sqlite
+  # zellij
+  tmux
   ];
  
   environment.variables.EDITOR = "nvim";
@@ -139,6 +148,15 @@
   #   enableSSHSupport = true;
   # };
 
+  programs.bash = {
+    interactiveShellInit = ''
+      # Start the SSH agent
+      alias start-ssh-agent='eval $(ssh-agent -s) && ssh-add'
+
+      # Open NixOS configuration in nvim with sudo
+      alias conf-nix='sudo nvim /etc/nixos/configuration.nix'
+    '';
+  };
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
