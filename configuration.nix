@@ -123,12 +123,24 @@
   lazydocker
   lazygit
   gnumake
+  fd
   ripgrep
   zig
   gcc
+  ##### go related installs
   go
   gopls
   gotests
+  iferr
+  impl
+  gomodifytags
+  govulncheck
+  mockgen
+  gotestsum
+  richgo
+  ginkgo
+  golines
+  ##### 
   fzf
   lua-language-server
   stylua
@@ -155,6 +167,14 @@
 
       # Open NixOS configuration in nvim with sudo
       alias conf-nix='sudo nvim /etc/nixos/configuration.nix'
+      # Set GOPATH (customize this path as needed)
+      export GOPATH=$HOME/go
+
+      # Set GOBIN (optional; customize if you want binaries in a specific location)
+      export GOBIN=$GOPATH/bin
+
+      # Add GOBIN to PATH so you can run installed binaries
+      export PATH=$PATH:$GOBIN
     '';
   };
   # List services that you want to enable:
